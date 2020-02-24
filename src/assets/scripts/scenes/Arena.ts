@@ -1,15 +1,15 @@
 import { Drawable } from "../core/Drawable";
 import { game } from "../core/Game.js";
-import { MainCharacter } from "../character/MainCharacter.js";
-import { MainCharacterController } from "../character/MainCharacterController.js";
+import { Player } from "../player/Player.js";
+import { PlayerMovementController } from "../player/PlayerMovementController.js";
 
 export class Arena implements Drawable {
-  private readonly player: MainCharacter;
-  private readonly playerController: MainCharacterController;
+  private readonly player: Player;
+  private readonly playerController: PlayerMovementController;
 
   constructor() {
-    this.player = new MainCharacter();
-    this.playerController = new MainCharacterController(this.player);
+    this.player = new Player();
+    this.playerController = new PlayerMovementController(this.player);
     this.playerController.initialize();
   }
   

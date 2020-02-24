@@ -4,7 +4,7 @@ import { Vector } from "../core/Vector.js";
 import { Rectangle } from "../core/solids/Rectangle.js";
 import { game } from "../core/Game.js";
 
-export class MainCharacter implements Drawable {
+export class Player implements Drawable {
   private position: Vector;
   private velocity: Vector;
   private lookDirection: Directions;

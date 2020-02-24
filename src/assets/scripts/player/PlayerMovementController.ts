@@ -1,10 +1,10 @@
 import { Directions } from "../core/Directions.js";
-import { MainCharacter } from "./MainCharacter.js";
+import { Player } from "./Player.js";
 
 // TODO: Refactor by mapping keyCodes to Directions
-export class MainCharacterController {
+export class PlayerMovementController {
   constructor(
-    private readonly player: MainCharacter,
+    private readonly player: Player,
   ) { }
 
   private setMovementDirectionBasedOnKeyPressed = (event: KeyboardEvent) => {
