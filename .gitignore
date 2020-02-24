@@ -1,0 +1,5 @@
+.vscode/
+.bin/**/*.d.ts
+.bin/**/*.js.map
+node_modules/
+tsconfig.tsbuildinfo

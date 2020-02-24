@@ -1,0 +1,11 @@
+{
+  "name": "soul-collector",
+  "version": "0.0.1",
+  "description": "",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas Tavares <lucastavaresdarocha@gmail.com>",
+  "license": "ISC"
+}
