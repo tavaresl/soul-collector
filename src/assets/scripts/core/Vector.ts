@@ -17,8 +17,4 @@ export class Vector {
 
     return this;
   }
-
-  public equals(other: Vector): boolean {
-    return this.x === other.x && this.y === other.y;
-  }
 }

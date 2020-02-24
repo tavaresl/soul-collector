@@ -2,14 +2,12 @@ import { Drawable } from "./Drawable";
 
 class Game {
   private readonly gameArea: HTMLCanvasElement;
-  private readonly scenes: Drawable[];
   public readonly drawContext: CanvasRenderingContext2D;
   private activeScene: Drawable;
 
   constructor() {
     this.gameArea = <HTMLCanvasElement>document.getElementById('game-area');
     this.drawContext = this.gameArea.getContext('2d')!;
-    this.scenes = [];
     this.activeScene = { draw(context) {} };
   }
 

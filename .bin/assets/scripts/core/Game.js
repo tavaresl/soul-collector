@@ -2,7 +2,6 @@ class Game {
     constructor() {
         this.gameArea = document.getElementById('game-area');
         this.drawContext = this.gameArea.getContext('2d');
-        this.scenes = [];
         this.activeScene = { draw(context) { } };
     }
     get VIEWPORT_HEIGHT() {

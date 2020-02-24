@@ -1,12 +1,8 @@
 import { Directions } from "../core/Directions.js";
 import { MainCharacter } from "./MainCharacter.js";
 
+// TODO: Refactor by mapping keyCodes to Directions
 export class MainCharacterController {
-  private isMovingLeft: boolean = false;
-  private isMovingUp: boolean = false;
-  private isMovingRight: boolean = false;
-  private isMovingDown: boolean = false;
-
   constructor(
     private readonly player: MainCharacter,
   ) { }
@@ -24,13 +20,13 @@ export class MainCharacterController {
   };
 
   private stopMovementDirectionBasedOnKeyReleased = (event: KeyboardEvent) => {
-    if (event.keyCode === 65 && !this.player.isMoving(Directions.EAST)) {
+    if (event.keyCode === 65) { // a
       this.player.stopMoving(Directions.WEST);
-    } else if (event.keyCode === 87 && !this.player.isMoving(Directions.SOUTH)) {
+    } else if (event.keyCode === 87) { // w
       this.player.stopMoving(Directions.NORTH);
-    } else if (event.keyCode === 68 && !this.player.isMoving(Directions.WEST)) {
+    } else if (event.keyCode === 68) { // d
       this.player.stopMoving(Directions.EAST);
-    } else if (event.keyCode === 83 && !this.player.isMoving(Directions.NORTH)) {
+    } else if (event.keyCode === 83) { // s
       this.player.stopMoving(Directions.SOUTH);
     }
   };

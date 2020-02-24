@@ -13,8 +13,5 @@ export class Vector {
         this.y -= vector.y;
         return this;
     }
-    equals(other) {
-        return this.x === other.x && this.y === other.y;
-    }
 }
 //# sourceMappingURL=Vector.js.map

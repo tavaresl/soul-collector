@@ -100,6 +100,7 @@ export class MainCharacter implements Drawable {
   isMoving(direction: Directions) {
     const isMovingAtAll = this.velocity.x !== 0 || this.velocity.y !== 0;
 
+    // TODO: Get rid of this tragic pile of trash
     if ([
       Directions.NORTHEAST,
       Directions.NORTHWEST,

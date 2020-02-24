@@ -2,10 +2,6 @@ import { Directions } from "../core/Directions.js";
 export class MainCharacterController {
     constructor(player) {
         this.player = player;
-        this.isMovingLeft = false;
-        this.isMovingUp = false;
-        this.isMovingRight = false;
-        this.isMovingDown = false;
         this.setMovementDirectionBasedOnKeyPressed = (event) => {
             if (event.keyCode === 65) {
                 this.player.startMoving(Directions.WEST);
@@ -21,16 +17,16 @@ export class MainCharacterController {
             }
         };
         this.stopMovementDirectionBasedOnKeyReleased = (event) => {
-            if (event.keyCode === 65 && !this.player.isMoving(Directions.EAST)) {
+            if (event.keyCode === 65) {
                 this.player.stopMoving(Directions.WEST);
             }
-            else if (event.keyCode === 87 && !this.player.isMoving(Directions.SOUTH)) {
+            else if (event.keyCode === 87) {
                 this.player.stopMoving(Directions.NORTH);
             }
-            else if (event.keyCode === 68 && !this.player.isMoving(Directions.WEST)) {
+            else if (event.keyCode === 68) {
                 this.player.stopMoving(Directions.EAST);
             }
-            else if (event.keyCode === 83 && !this.player.isMoving(Directions.NORTH)) {
+            else if (event.keyCode === 83) {
                 this.player.stopMoving(Directions.SOUTH);
             }
         };
