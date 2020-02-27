@@ -16,7 +16,7 @@ export class Arena implements Drawable {
   draw(context: CanvasRenderingContext2D): void {
     context.fillStyle = '#000000';
 
-    context.fillRect(0, 0, game.VIEWPORT_WIDTH, game.VIEWPORT_WIDTH);
+    context.fillRect(0, 0, game.VIEWPORT_WIDTH, game.VIEWPORT_HEIGHT);
     this.player.draw(context);
   }
 }

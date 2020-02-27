@@ -1,32 +1,33 @@
 import { Drawable } from "./Drawable";
+import { Viewport } from "./Viewport.js";
 
 class Game {
-  private readonly gameArea: HTMLCanvasElement;
-  public readonly drawContext: CanvasRenderingContext2D;
-  private activeScene: Drawable;
+  private readonly viewport: Viewport;
+  private activeScene?: Drawable;
 
   constructor() {
-    this.gameArea = <HTMLCanvasElement>document.getElementById('game-area');
-    this.drawContext = this.gameArea.getContext('2d')!;
-    this.activeScene = { draw(context) {} };
+    this.viewport = new Viewport('#game-area');
+    this.viewport.initialize();
   }
 
   get VIEWPORT_HEIGHT() {
-    return this.gameArea.height;
+    return this.viewport.height;
   }
 
   get VIEWPORT_WIDTH() {
-    return this.gameArea.width;
+    return this.viewport.width;
   }
 
   get VIEWPORT_X() {
-    const boundingRectangle = this.gameArea.getBoundingClientRect();
-    return boundingRectangle.left;
+    return this.viewport.x;
   }
 
   get VIEWPORT_Y() {
-    const boundingRectangle = this.gameArea.getBoundingClientRect();
-    return boundingRectangle.top;
+    return this.viewport.y;
+  }
+
+  get drawContext() {
+    return this.viewport.drawContext;
   }
 
   setActiveScene(scene: Drawable) {
@@ -35,6 +36,10 @@ class Game {
 
   start(): void {
     const animationFrameCallback = (timestamp: number) => {
+      if (!this.activeScene) {
+        throw new Error('Game cannot start without an active scene.');
+      }
+
       this.activeScene.draw(this.drawContext);
 
       return window.requestAnimationFrame(animationFrameCallback);
