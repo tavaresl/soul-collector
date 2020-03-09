@@ -1,12 +1,14 @@
 import { Drawable } from "../core/Drawable";
 import { Directions } from "../core/Directions.js";
 import { Vector } from "../core/Vector.js";
-import { Rectangle } from "../core/solids/Rectangle.js";
+import { Rectangle } from "../core/geometry/Rectangle.js";
 import { game } from "../core/Game.js";
+import { Circle } from "../core/geometry/Circle.js";
 
 export class Player implements Drawable {
   private position: Vector;
   private velocity: Vector;
+  private state: PlayerState = PlayerState.IDLE;
   private lookDirection: Directions;
   private lookDirectionAngles: Record<Directions, number> = {
     [Directions.EAST]: 0,
@@ -97,7 +99,7 @@ export class Player implements Drawable {
     }
   }
 
-  isMoving(direction: Directions) {
+  isMoving(direction: Directions): boolean {
     const isMovingAtAll = this.velocity.x !== 0 || this.velocity.y !== 0;
 
     // TODO: Get rid of this tragic pile of trash
@@ -122,9 +124,21 @@ export class Player implements Drawable {
       return this.velocity.y > 0;
     }
 
-    if (direction === Directions.WEST) {
-      return this.velocity.x < 0;
-    }
+    return this.velocity.x < 0;
+  }
+
+  is(state: PlayerState) {
+    return this.state === state;
+  }
+
+  attack(): void {
+    this.state = PlayerState.ATTACKING;
+
+    console.log('Player attacked');
+
+    window.setTimeout(() => {
+      this.state = PlayerState.IDLE;
+    }, 1000);
   }
 
   draw(context: CanvasRenderingContext2D): void {
@@ -136,5 +150,21 @@ export class Player implements Drawable {
       this.lookDirectionAngles[this.lookDirection],
       '#8172ac',
     );
+
+    if (this.state === PlayerState.ATTACKING) {
+      new Circle(
+        10,
+        this.position.x + 20,
+        this.position.y + 10,
+      )
+      .draw(context);
+    }
   }
 }
+
+export enum PlayerState {
+  IDLE,
+  MOVING,
+  ATTACKING,
+  MOVING_AND_ATTACKING,
+};

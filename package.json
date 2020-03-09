@@ -2,10 +2,13 @@
   "name": "soul-collector",
   "version": "0.0.1",
   "description": "",
-  "main": "bin/index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && electron ."
   },
   "author": "Lucas Tavares <lucastavaresdarocha@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^8.1.0"
+  }
 }
