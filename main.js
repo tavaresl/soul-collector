@@ -1,4 +1,6 @@
+const path = require('path');
 const { app, BrowserWindow, screen } = require('electron');
+const reload = require('electron-reload');
 
 async function createWindow() {
   const window = new BrowserWindow({
@@ -11,6 +13,8 @@ async function createWindow() {
   }); 
 
   await window.loadFile('./index.html');
+
+  window.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow);
@@ -22,3 +26,7 @@ app.on('activate', () => {
 });
 
 app.on('window-all-closed', app.quit);
+
+reload(path.join(__dirname, './bin'), {
+  electron: require('electron'),
+});
