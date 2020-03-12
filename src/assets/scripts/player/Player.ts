@@ -8,6 +8,7 @@ import { Circle } from "../core/geometry/Circle.js";
 export class Player implements Drawable {
   private position: Vector;
   private velocity: Vector;
+  private speed = 2;
   private state: PlayerState = PlayerState.IDLE;
   private lookDirection: Directions;
   private lookDirectionAngles: Record<Directions, number> = {
@@ -28,75 +29,41 @@ export class Player implements Drawable {
   }
 
   startMoving(direction: Directions) {
-    if (direction === Directions.NORTH) {
-      if (!this.isMoving(Directions.NORTH) && !this.isMoving(Directions.SOUTH)) {
-        this.velocity.add(new Vector(0, -2));
-  
-        if (this.isMoving(Directions.EAST)) {
-          this.lookDirection = Directions.NORTHEAST;
-        } else if (this.isMoving(Directions.WEST)) {
-          this.lookDirection = Directions.NORTHWEST;
-        } else {
-          this.lookDirection = Directions.NORTH;
-        }
-      }
-    } else if (direction === Directions.SOUTH) {
-      if (!this.isMoving(Directions.NORTH) && !this.isMoving(Directions.SOUTH)) {
-        this.velocity.add(new Vector(0, 2));
-  
-        if (this.isMoving(Directions.EAST)) {
-          this.lookDirection = Directions.SOUTHEAST;
-        } else if (this.isMoving(Directions.WEST)) {
-          this.lookDirection = Directions.SOUTHWEST;
-        } else {
-          this.lookDirection = Directions.SOUTH;
-        }
-      }
-    } else if (direction === Directions.WEST) {
-      if (!this.isMoving(Directions.WEST) && !this.isMoving(Directions.EAST)) {
-        this.velocity.add(new Vector(-2, 0));
-  
-        if (this.isMoving(Directions.NORTH)) {
-          this.lookDirection = Directions.NORTHWEST;
-        } else if (this.isMoving(Directions.SOUTH)) {
-          this.lookDirection = Directions.SOUTHWEST;
-        } else {
-          this.lookDirection = Directions.WEST;
-        }
-      }
-    } else if (direction === Directions.EAST) {
-      if (!this.isMoving(Directions.EAST) && !this.isMoving(Directions.WEST)) {
-        this.velocity.add(new Vector(2, 0));
-  
-        if (this.isMoving(Directions.NORTH)) {
-          this.lookDirection = Directions.NORTHEAST;
-        } else if (this.isMoving(Directions.SOUTH)) {
-          this.lookDirection = Directions.SOUTHEAST;
-        } else {
-          this.lookDirection = Directions.EAST;
-        }
-      }
+    switch (direction) {
+      case Directions.NORTH:
+        this.velocity.normalize().add(new Vector(0, -1));
+        break;
+
+      case Directions.SOUTH:
+        this.velocity.normalize().add(new Vector(0, 1));
+        break;
+
+      case Directions.WEST:
+        this.velocity.normalize().add(new Vector(-1, 0));
+        break;
+
+      case Directions.EAST:
+        this.velocity.normalize().add(new Vector(1, 0));
+        break;
     }
+
+    this.velocity.magnitude = this.speed;
   }
 
   stopMoving(direction: Directions) {
-    if (direction === Directions.NORTH || direction === Directions.SOUTH) {
-      this.velocity.subtract(new Vector(0, this.velocity.y));
+    switch (direction) {
+      case Directions.NORTH:
+      case Directions.SOUTH:
+        this.velocity.subtract(new Vector(0, this.velocity.y));
+        break;
 
-      if (this.isMoving(Directions.EAST)) {
-        this.lookDirection = Directions.EAST;
-      } else if (this.isMoving(Directions.WEST)) {
-        this.lookDirection =  Directions.WEST;
-      }
-    } else {
-      this.velocity.subtract(new Vector(this.velocity.x, 0));
-
-      if (this.isMoving(Directions.NORTH)) {
-        this.lookDirection = Directions.NORTH;
-      } else if (this.isMoving(Directions.SOUTH)) {
-        this.lookDirection = Directions.SOUTH;
-      }
+      case Directions.WEST:
+      case Directions.EAST:
+        this.velocity.subtract(new Vector(this.velocity.x, 0));
+        break;
     }
+
+    this.velocity.magnitude = this.speed;
   }
 
   isMoving(direction: Directions): boolean {
