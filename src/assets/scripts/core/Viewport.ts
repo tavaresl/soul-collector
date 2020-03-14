@@ -34,6 +34,10 @@ export class Viewport {
     return this.gameArea.getContext('2d')!;
   }
 
+  get boundingBox() {
+    return this.gameArea.getBoundingClientRect();
+  }
+
   private resizeGameArea = (event?: UIEvent) => {
     const gameAreaParentObj = this.gameArea.parentElement;
 

@@ -37,5 +37,4 @@ export class Rectangle {
 
     context.restore();
   }
-
 }

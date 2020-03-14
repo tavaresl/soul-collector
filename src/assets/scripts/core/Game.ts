@@ -1,9 +1,9 @@
-import { Drawable } from "./Drawable";
 import { Viewport } from "./Viewport.js";
+import { GameObject } from "./GameObject";
 
 class Game {
-  private readonly viewport: Viewport;
-  private activeScene?: Drawable;
+  public readonly viewport: Viewport;
+  private activeScene?: GameObject;
 
   constructor() {
     this.viewport = new Viewport('#game-area');
@@ -30,17 +30,21 @@ class Game {
     return this.viewport.drawContext;
   }
 
-  setActiveScene(scene: Drawable) {
+  setActiveScene(scene: GameObject) {
     this.activeScene = scene;
   }
 
   start(): void {
-    const animationFrameCallback = (timestamp: number) => {
-      if (!this.activeScene) {
-        throw new Error('Game cannot start without an active scene.');
-      }
+    if (!this.activeScene) {
+      throw new Error('Game cannot start without an active scene.');
+    }
 
-      this.activeScene.draw(this.drawContext);
+    this.activeScene.initialize();
+
+    const animationFrameCallback = (timestamp: number) => {
+
+      this.activeScene?.draw(this.drawContext);
+      this.activeScene?.update(timestamp);
 
       return window.requestAnimationFrame(animationFrameCallback);
     };

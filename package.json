@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "tsc && electron ."
+    "start": "electron .",
+    "start:debug": "electron . --debug"
   },
   "author": "Lucas Tavares <lucastavaresdarocha@gmail.com>",
   "license": "ISC",

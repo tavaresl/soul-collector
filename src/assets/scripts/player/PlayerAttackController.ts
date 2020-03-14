@@ -1,11 +1,7 @@
-import { Player } from "./Player.js";
+import { GameObject } from "../core/GameObject.js";
 
-export class PlayerAttackController {
+export class PlayerAttackController extends GameObject {
   private keyIsBeingPressed = false;
-
-  constructor(
-    private readonly player: Player,
-  ) { }
 
   private attack = (event: KeyboardEvent) => {
     if (event.keyCode !== 32 || this.keyIsBeingPressed) {
@@ -13,7 +9,6 @@ export class PlayerAttackController {
     }
 
     this.keyIsBeingPressed = true;
-    this.player.attack();
   };
 
   private setKeyAsNotBeingPressed = (event: KeyboardEvent) => {
@@ -25,5 +20,7 @@ export class PlayerAttackController {
   initialize() {
     window.addEventListener('keydown', this.attack);
     window.addEventListener('keyup', this.setKeyAsNotBeingPressed);
+
+    super.initialize();
   }
 }

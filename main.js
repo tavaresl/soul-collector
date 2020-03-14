@@ -14,7 +14,9 @@ async function createWindow() {
 
   await window.loadFile('./index.html');
 
-  window.webContents.openDevTools();
+  if (process.argv.includes('--debug')) {
+    window.webContents.openDevTools();
+  }
 }
 
 app.whenReady().then(createWindow);
